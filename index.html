@@ -27,25 +27,29 @@
         const codeBox = document.getElementById("code")
         const notesBox = document.getElementById("notes")
         const notes = JSON.parse(localStorage.getItem("CodeVaultNotes")) || []
-
         function showNotes() {
             notesBox.innerHTML = ""
 
-            notes.forEach((note) => {
+            notes.forEach((note, index) => {
                 notesBox.innerHTML += `
             <div class="mx-auto mt-4 max-w-md rounded-xl bg-white p-5 shadow">
                 <h2 class="font-bold">${note.title}</h2>
                 <p class="mt-2 rounded bg-gray-900 p-2 text-green-300">${note.code}</p>
+                <button onclick="deleteNote(${index})" class="mt-3 rounded bg-red-500 px-3 py-1 text-white">Delete</button>
             </div>
         `
             })
         }
-
         addbtn.addEventListener("click", () => {
             notes.push({ title: titleBox.value, code: codeBox.value })
             showNotes()
             saveNotes()
         })
+        function deleteNote(index) {
+            notes.splice(index, 1)
+            saveNotes()
+            showNotes()
+        }
 
         showNotes()
         function saveNotes() {
