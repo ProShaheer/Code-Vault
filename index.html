@@ -16,7 +16,7 @@
         <button id="addbtn" class="mt-3 rounded bg-blue-500 px-4 py-2 text-white">Add Note</button>
 
     </div>
-
+    <input id="search" class="mx-auto mt-4 block w-full max-w-md rounded border p-2" placeholder="Search notes...">
     <div id="notes"></div>
 
 
@@ -27,10 +27,14 @@
         const codeBox = document.getElementById("code")
         const notesBox = document.getElementById("notes")
         const notes = JSON.parse(localStorage.getItem("CodeVaultNotes")) || []
+        const searchBox = document.getElementById("search")
         function showNotes() {
             notesBox.innerHTML = ""
 
             notes.forEach((note, index) => {
+                if (!note.title.toLowerCase().includes(searchBox.value.toLowerCase())) {
+                    return
+                }
                 notesBox.innerHTML += `
             <div class="mx-auto mt-4 max-w-md rounded-xl bg-white p-5 shadow">
                 <h2 class="font-bold">${note.title}</h2>
