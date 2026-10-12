@@ -40,11 +40,18 @@
         `
             })
         }
+
         addbtn.addEventListener("click", () => {
+            if (titleBox.value === "" || codeBox.value === "") {
+                return
+            }
             notes.push({ title: titleBox.value, code: codeBox.value })
             showNotes()
             saveNotes()
+            titleBox.value = ""
+            codeBox.value = ""
         })
+
         function deleteNote(index) {
             notes.splice(index, 1)
             saveNotes()
